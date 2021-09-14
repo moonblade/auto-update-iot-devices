@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.ant-layout-content {
+  padding-top: 50px;
+  height: 88.5vh;
+}
