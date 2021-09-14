@@ -1,5 +1,6 @@
-import config from "./config";
-
+import config from "../common/config";
+import { storage } from "../common/firebase";
+ 
 export const getFileContent = async (file) => {
   return new Promise((res) => {
     const reader = new FileReader();
@@ -24,4 +25,15 @@ export const getDetails = async (file) => {
     }
     return result;
   });
-}
+};
+
+export const uploadToStorage = async (file, details) => {
+  if (!details.binaryName || !details.binaryVersion) {
+    return Promise.reject("No name or version found in binary");
+  }
+  const uploadPath = (config.binaryRef + details.binaryName + "/" + details.binaryVersion).replaceAll("\u0000", "");
+  const uploadRef = storage.ref().child(uploadPath);
+  return uploadRef.put(file).then(() => {
+    return uploadRef.getDownloadURL();
+  });
+};
