@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Form, Button, Upload as UploadComponent } from "antd";
+import { Form, Upload as UploadComponent, message } from "antd";
 import { InboxOutlined } from '@ant-design/icons';
 import { getDetails, uploadToStorage } from "./util";
 
@@ -9,8 +9,7 @@ const formItemLayout = {
 };
 
 export const Upload = () => {
-  const [fileList, setFileList] = useState([])
-
+  const [fileList, setFileList] = useState([]);
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
@@ -19,11 +18,12 @@ export const Upload = () => {
     if (file == null) return;
     getDetails(file).then(details => {
       return uploadToStorage(file, details);
-    }).then(result => {
-      console.log(result);
+    }).then(details => {
+      message.success("Uploaded latest binary for " + details.binaryName);
+      setFileList([]);
     }).catch(error => {
-      console.log(error);
-      console.log(error.code);
+      message.error("Could not update binary");
+      message.error(error);
     });
   }
 

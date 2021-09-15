@@ -9,11 +9,18 @@ const firebaseConfig = {
   measurementId: "G-LEXSPCGQF9"
 };
 
+const binaryName = "__BINARY_NAME:";
+const binaryVersion = "__BINARY_VERSION:";
 export const config = {
   binaryRef: "/binary/",
   detailsRegex: {
-    binaryName: "__BINARY_NAME:([^_]+)__",
-    binaryVersion: "__BINARY_VERSION:([^_]+)__",
+    binaryName: binaryName + "([^_]+)__",
+    binaryVersion: binaryVersion + "([^_]+)__",
+  },
+  firmware: {
+    firmwarePath: "/firmware/",
+    binaryName,
+    binaryVersion
   },
   firebaseConfig
 };
