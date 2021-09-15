@@ -20,6 +20,7 @@ export const Upload = () => {
       return uploadToStorage(file, details);
     }).then(details => {
       message.success("Uploaded latest binary for " + details.binaryName);
+      console.log(details.downloadUrl);
       setFileList([]);
     }).catch(error => {
       message.error("Could not update binary");

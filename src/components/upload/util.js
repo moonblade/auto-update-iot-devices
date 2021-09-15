@@ -31,7 +31,7 @@ export const updateRtdb = async (details) => {
   const dbRef = database.ref(details.binaryName + config.firmware.firmwarePath);
   return new Promise((res) => {
     dbRef.set({
-      binaryVersion: config.firmware.binaryName + details.binaryName + config.firmware.binaryVersion + details.binaryVersion + "__",
+      binaryVersion: (config.firmware.binaryName + details.binaryName + config.firmware.binaryVersion + details.binaryVersion + "__").replaceAll("\u0000", ""),
       lastUpdate: new Date().toISOString(),
       downloadUrl: details.downloadUrl
     });
