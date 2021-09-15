@@ -11,10 +11,14 @@ This is 2021, There has got to be a better solution than that, and one that woul
 
 I read about ota updates for esp8266 (nodemcu iot devices I was using) and trusting the ota update library to just work, started on the frontend react portion to upload and tag a new binary. (This repo).
 
+![image](https://user-images.githubusercontent.com/9362269/133482445-8b70ec18-80f0-4810-aaa9-6575cd477df1.png)
+
 So this allows you to upload a binary file, it converts the binary into utf-8 string and takes the build version and build name of the compiled binary (Added at compile time by the arduino library with a constant added by me).
 So once this build name and version is acquired, It uploads the binary to firebase storage. Then it updates rtdb stating that there is a new firmware version available.
 
 The nodemcu devices, at their end, ping the firmware version and if they find a version mismatch, they will download the newer binary, install it and reboot.
+
+### Issues
 
 Its easier said than done though as I was riddled with issues throughout the mini project. First, the upload to firebase storage just would not work, thinking it was an auth issue, removed all authorization requirements from the storage.
 No dice. Then thinking that this might be some issue with react, tried rebuilding the entire code in html, js which is a plain stupid thing to do in any case. 
